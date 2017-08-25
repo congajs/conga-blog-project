@@ -84,14 +84,14 @@ module.exports = class User {
         /**
          * @Bass:CreatedAt
          * @Bass:Field(type="Date", name="created_at")
-         * @Rest:Attribute(type="Date", format="Y-m-d h:i:s", update=false)
+         * @Rest:Attribute(type="Date", format="YYYY-MM-DD HH:mm:ss", update=false)
          */
         this.createdAt = null;
 
         /**
          * @Bass:UpdatedAt
          * @Bass:Field(type="Date", name="updated_at")
-         * @Rest:Attribute(type="Date", format="Y-m-d h:i:s", update=false)
+         * @Rest:Attribute(type="Date", format="YYYY-MM-DD HH:mm:ss", update=false)
          */
         this.updatedAt = null;
 

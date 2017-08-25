@@ -112,6 +112,10 @@ session:
 # are automatically serialized to standard or custom specifications
 # ------------------------------------------------------------------------------
 rest:
+
+    specification:
+        inflection: snake
+
     resource:
         paths:
             - blog-bundle:model

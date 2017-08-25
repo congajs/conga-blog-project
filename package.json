@@ -11,18 +11,19 @@
     "test": "jasmine"
   },
   "dependencies": {
+    "@conga/bass-express-session": "^1.0.0",
     "@conga/framework": "^2.0.0",
     "@conga/framework-bass": "^2.0.0",
-    "@conga/framework-session": "^2.0.0",
-    "@conga/framework-security": "^2.0.0",
-    "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
     "@conga/framework-rest": "congajs/conga-rest#2.0.0-dev",
+    "@conga/framework-security": "^2.0.0",
+    "@conga/framework-session": "^2.0.0",
+    "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
     "@conga/framework-view": "^2.0.0",
     "@conga/framework-view-twig": "^2.0.0",
-    "@conga/bass-express-session": "^1.0.0",
+    "bass-mongodb": "^1.0.0",
     "bass-nedb": "^1.0.7",
-    "bass-mongodb": "^1.0.2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "slug": "^0.9.1"
   },
   "devDependencies": {
     "@conga/framework-webpack": "congajs/conga-webpack",

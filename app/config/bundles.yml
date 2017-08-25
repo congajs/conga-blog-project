@@ -9,6 +9,7 @@ bundles:
 
         # project bundles (from src/ directory)
         - admin-bundle
+        - api-bundle
         - blog-bundle
 
         # core conga bundles (from node_modules/ directory)

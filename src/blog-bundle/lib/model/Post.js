@@ -1,6 +1,8 @@
+const slug = require('slug');
+
 /**
  * @Bass:Document(collection="posts")
- * @Rest:Resource(type="posts")
+ * @Rest:Resource(type="post")
  */
 module.exports = class Post {
 
@@ -19,7 +21,7 @@ module.exports = class Post {
 
         /**
          * @Bass:OneToOne(document="User")
-         * @Rest:Attribute
+         * @Rest:Relationship(type="one", relatedType="user")
          */
         this.user = null;
 
@@ -75,6 +77,13 @@ module.exports = class Post {
         this.title = null;
 
         /**
+         * @Bass:Field(type="String", name="slug")
+         * @Assert:NotBlank
+         * @Rest:Attribute(update=false)
+         */
+        this.slug = null;
+
+        /**
          * @Bass:Field(type="String", name="body")
          * @Assert:NotBlank
          * @Rest:Attribute
@@ -103,17 +112,28 @@ module.exports = class Post {
         /**
          * @Bass:CreatedAt
          * @Bass:Field(type="Date", name="created_at")
-         * @Rest:Attribute(type="Date", format="Y-m-d h:i:s", update=false)
+         * @Rest:Attribute(type="Date", format="YYYY-MM-DD HH:mm:ss", update=false)
          */
         this.createdAt = null;
 
         /**
          * @Bass:UpdatedAt
          * @Bass:Field(type="Date", name="updated_at")
-         * @Rest:Attribute(type="Date", format="Y-m-d h:i:s", update=false)
+         * @Rest:Attribute(type="Date", format="YYYY-MM-DD HH:mm:ss", update=false)
          */
         this.updatedAt = null;
 
+    }
+
+    /**
+     * Update the slug before persisting
+     *
+     * @Bass:PrePersist
+     * @-Bass:PreUpdate
+     */
+    onPrePersist(evt, cb) {
+        this.slug = '/' + slug(this.title, { lower: true });
+        cb();
     }
 
 };
