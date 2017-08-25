@@ -1,0 +1,56 @@
+{% extends "admin-bundle:layout" %}
+
+{% set title = "Admin Login" %}
+
+{% block body_content %}
+    <form action="/admin/_login" method="POST">
+        <section>
+            <header>
+                {% if errors is defined %}
+                    <p class="error">Please correct the errors below</p>
+                {% else %}
+                    {% if signup is defined and signup %}
+                        <p>Thank you for signing up!</p>
+                    {% elseif denied is defined and denied %}
+                        <p>Access Denied</p>
+                    {% endif %}
+                    {% if failed is defined and failed %}
+                        <p>Login failed; try again.</p>
+                    {% else %}
+                        <p>Please complete the form below, to log in.</p>
+                    {% endif %}
+                {% endif %}
+            </header>
+
+            {% set error = errors is defined and errors|validation_error("email") %}
+            <div class="form-item{% if error %} error{% endif %}">
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email" value="" />
+                </label>
+                {% if error %}
+                    <p class="error">
+                        <span>{{ error }}</span>
+                    </p>
+                {% endif %}
+            </div>
+
+            {% set error = errors and data.errors|validation_error("email") %}
+            <div class="form-item{% if error %} error{% endif %}">
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="password" value="" />
+                </label>
+                {% if error %}
+                    <p class="error">
+                        <span>{{ error }}</span>
+                    </p>
+                {% endif %}
+            </div>
+
+            <footer>
+                <button type="submit" class="action">Continue</button>
+            </footer>
+        </section>
+    </form>
+{% endblock %}

@@ -1,0 +1,16 @@
+# ide / os
+.settings
+.project
+.DS_Store
+
+# node/npm
+node_modules
+npm-debug.log
+package-lock.json
+
+# app
+app/config/parameters.yml
+var/*/*
+
+# app tests
+spec/data/projects/sample/var/*

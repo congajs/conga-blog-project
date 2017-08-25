@@ -1,0 +1,240 @@
+# ------------------------------------------------------------------------------
+# @conga/framework-security
+#
+# This bundle allows you to configure security for your application.  You can
+# configure encryption strategies and firewalls to control access to routes.
+#
+# Readme: https://github.com/congajs/conga-security
+#
+# (don't be scared it looks harder than it is!)
+# ------------------------------------------------------------------------------
+security:
+
+    #---------------------------------------------------------------------------
+    # This section allows you to configure encryption strategies for your user
+    # models (or any class).
+    #
+    # Built in strategies are bcrypt, sha512, sha256, md5, and text
+    # See the readme for instructions on how to register your own encryptors.
+    #---------------------------------------------------------------------------
+    encryption:
+
+        # Configure the User model to use sha512 based encryption with a custom
+        # secret. Also encode this value as base64.
+        user:
+            path: blog-bundle:model/User
+            algorithm: sha512
+            secret: asd8f6ja#*sJHGdfg234jkw@#$%erhg=!
+            encode_as_base64: true
+
+        # Configure the InMemoryUser with bcrypt encryption and base64 encoding.
+        in_memory:
+            path: "@conga/framework-security:security/user/InMemoryUser"
+            algorithm: bcrypt
+            saltRounds: 10
+            encode_as_base64: true
+
+    #---------------------------------------------------------------------------
+    # This section allows you to configure firewalls to control access to your
+    # routes.
+    #
+    # The rules are processed in order, so the first route to match a request
+    # wins.
+    #
+    # Secure routes need a provider, an authenticator, and roles. The provider
+    # fetches a resource for the authenticator to authenticate. Any resource
+    # that is found matching the request credentials needs to also have the
+    # configured access roles, or access is denied.
+    #---------------------------------------------------------------------------
+    firewall:
+
+        ### -
+        # restrict access to the API
+        #api_access_firewall:
+        #    route: ^/api
+        #    shared: false
+        #    stateless: true   # no session!
+        #    provider: api_client.provider
+        #    authenticator:
+        #        id: http.authenticator
+        #        options:
+        #            signed: true
+        #            strategy: headers:body:date:random
+
+        ### -
+        # restrict access to private blogs - relies on a previously established session
+        private_blog_access:
+            route: ^/blog/private
+            roles: ROLE_BLOG_READ
+            stateless: false
+            shared: true  # if you are logged into any other realm with the ROLE_BLOG_READ role, you can come in
+            routes:
+                redirect: /blog/private/denied
+
+        ### -
+        # restrict access to authors - relies on a previously established session
+        author_access:
+            route: ^/blog/author
+            roles: ROLE_AUTHOR
+            stateless: false
+            shared: true  # if you are logged into any other realm with the ROLE_AUTHOR role, you can come in
+            routes:
+                redirect: /blog/author/denied
+
+        ### -
+        # if a firewall is configured as anonymous, access is always granted
+        # anonymous routes should typically be configured at the top of the list
+        member_anonymous:
+            route: ^/member/signup$
+            anonymous: true
+
+        ### -
+        # our members log in through an HTTP form
+        # this block configures the member authentication strategy
+        member_access:
+            route: ^/member
+            roles: ROLE_USER
+            stateless: false            # aka. stateful, aka. saves data in a session!
+            provider: chain.provider
+
+            # this firewall is shared with specific realms; if you are logged in with any of these
+            # realms, you can access this realm without authenticating again
+            shared:
+                - admin_access
+                - private_blog_access
+                - author_access
+
+            # the encryption options instruct the firewall on how to encrypt and decrypt
+            # the auth token when it's saved in a session - for stateful firewalls
+            encryption:
+                salt: member-session-encryption-salt
+                algorithm: 'bf-ecb'  # blowfish
+
+            # optionally, the firewall respects some built-in routes
+            routes:
+                # log out of this security realm; does not destroy the session, it just
+                # logs the user out of this realm
+                logout:
+                    path: /member/logout
+                    target: /member/login   # after logout, forward the request here; otherwise to the redirect route
+
+                # on access denied, instead of responding with a 401 or 403, the system will
+                # respond with a 302 redirect to the provided url
+                redirect: /member/denied
+
+            # the http form authenticator requires custom options
+            authenticator:
+                #id: form.authenticator
+                service: '@security.firewall.authenticator.http_form'
+                options:
+                    view_route: /member/login                     # (required) the route that shows the login form view
+                    action_route: /member/_login                  # (required) the route that the form submits to
+                    action_failed_route: /member/login/failed     # (optional) the route the user is redirect to on a failed login attempt
+                    success_redirect_route: /member               # (optional) the route that the user should land on when successfully logging in
+                    login_field: email                            # (required) the login / username field in the form post data (required)
+                    secret_field: password                        # (required) the secret / password field in the form post data (required)
+
+        ### -
+        # our administrators log in through an HTTP form
+        # this block configures the admin authentication strategy
+        admin_access:
+            route: ^/admin
+            roles: ROLE_ADMIN
+            stateless: false
+            provider: chain.provider
+
+            # another realm's token will not grant access here (but other realms may still share with us)
+            shared: false
+
+            encryption:
+                salt: admin-session-encryption-salt
+                algorithm: 'bf-ecb'  # blowfish
+
+            routes:
+                redirect: /admin/denied
+                logout:
+                    path: /admin/logout
+                    target: /admin/login
+
+            authenticator:
+                #id: form.authenticator
+                service: '@security.firewall.authenticator.http_form'
+                options:
+                    view_route: /admin/login                     # (required) the route that shows the login form view
+                    action_route: /admin/_login                  # (required) the route that the form submits to
+                    action_failed_route: /admin/login/failed     # (optional) the route the user is redirect to on a failed login attempt
+                    success_redirect_route: /admin               # (optional) the route that the user should land on when successfully logging in
+                    login_field: email                           # (required) the login / username field in the form post data (required)
+                    secret_field: password                       # (required) the secret / password field in the form post data (required)
+
+    #---------------------------------------------------------------------------
+    # This section allows you to configure authenticators for your firewall
+    #
+    # Firewall authenticators need to be registered as a service. You reference
+    # an authenticator in your firewall by the given key.  The value is the
+    # service id pointing to your service class.
+    #
+    # The authenticator is responsible for parsing the login information from
+    # a request (headers, request body, etc.) and passing it off to a provider
+    # so it can fetch an auth resource.
+    #
+    # Custom authenticators need to extend AbstractAuthenticator
+    #
+    # There is an authenticator already done for you that supports HTTP Basic
+    # Authentication.
+    #---------------------------------------------------------------------------
+    authenticators:
+
+        # reference to the http_basic built-in authenticator
+        http.authenticator: '@security.firewall.authenticator.http_basic'
+
+        # reference to the http_form built-in authenticator
+        form.authenticator: '@security.firewall.authenticator.http_form'
+
+    #---------------------------------------------------------------------------
+    # This section allows you to configure providers for your firewall
+    #
+    # Firewall providers are responsible for returning authenticated resources
+    # from a persistence layer, using the credentials given to it by an
+    # authenticator.
+    #
+    # There are three types of providers built-in: InMemoryProvider,
+    # BassProvider, and ChainProvider.
+    #
+    # You can reference a service as your provider, but it must inherit from
+    # AbstractProvider.
+    #
+    # You can also create your own provider configuration scheme, so you can
+    # configure providers like the InMemoryProvider, BassProvider and
+    # ChainProvider.
+    #---------------------------------------------------------------------------
+    providers:
+
+        # the in-memory provider with our own custom user accounts
+        memory.provider:
+            memory:
+                users:
+                    # email: conga@member
+                    # password: let-me-in
+                    conga@member:
+                        password: JDJhJDEwJEJHT0ZLckYxeXExdk1MaDYwTjFjQ09BczBxQlJ6dFVWMDNFekxRV1YzOTJqU2Q2bVFHZTBT
+                        roles: [ROLE_USER, ROLE_BLOG_READ, ROLE_AUTHOR]
+
+                    # email: conga@admin
+                    # password: give-me-admin
+                    conga@admin:
+                        password: JDJhJDEwJDZJZTFlVTJISldSWFFZNHB1S1hCTnVTc2RITzl6UnBJeEx5c25kaEpSeUlkbU16RGhRM3VL
+                        roles: [ROLE_USER, ROLE_BLOG_READ, ROLE_AUTHOR, ROLE_ADMIN]
+
+        # the bass provider pointed to our User model
+        user.provider:
+             bass:
+                document: blog-bundle:model/User    # the document path
+                login: email                        # the login / username field in the document
+                secret: password                    # the password field in the document
+
+        # our own api provider
+        #api_client.provider: '@api_client.provider.service'
+
+        # our provider chain - tries each provider one by one until it succeeds
+        chain.provider: ['memory.provider', 'user.provider']

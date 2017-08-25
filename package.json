@@ -1,0 +1,35 @@
+{
+  "name": "@conga/project-blog",
+  "version": "2.0.0-dev",
+  "description": "This is a basic blog project to get started with templating, route security, and working with bass.",
+  "license": "MIT",
+  "main": "",
+  "scripts": {
+    "start": "node app/app.js",
+    "build": "node app/build.js",
+    "watch": "nodemon app/app.js",
+    "test": "jasmine"
+  },
+  "dependencies": {
+    "@conga/framework": "^2.0.0",
+    "@conga/framework-bass": "congajs/conga-bass#2.0.0-dev",
+    "@conga/framework-session": "^2.0.0",
+    "@conga/framework-security": "^2.0.0",
+    "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
+    "@conga/framework-rest": "congajs/conga-rest#2.0.0-dev",
+    "@conga/framework-view": "congajs/conga-view",
+    "@conga/framework-view-twig": "congajs/conga-twig",
+    "@conga/bass-express-session": "^1.0.0",
+    "bass-nedb": "^1.0.7",
+    "bass-mongodb": "^1.0.2",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "@conga/framework-webpack": "congajs/conga-webpack",
+    "@conga/framework-profiler": "congajs/conga-profiler",
+    "jasmine": "^2.6.0",
+    "nodemon": "^1.11.0",
+    "request": "^2.81.0"
+  },
+  "readmeFilename": "README.md"
+}

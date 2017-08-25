@@ -1,0 +1,27 @@
+################################################################################
+## This file configures all of the bundles that the application will need
+################################################################################
+
+bundles:
+
+    # bundles for all environments
+    all:
+
+        # project bundles (from src/ directory)
+        - admin-bundle
+        - blog-bundle
+
+        # core conga bundles (from node_modules/ directory)
+        - "@conga/framework-security"
+        - "@conga/framework-session"
+        - "@conga/framework-view"
+        - "@conga/framework-view-twig"
+        - "@conga/framework-bass"
+        - "@conga/framework-rest"
+        - "@conga/framework-validation"
+
+    # add bundles that are only used for development
+    development:
+
+        #- "@conga/framework-profiler"
+        #- "@conga/framework-webpack"

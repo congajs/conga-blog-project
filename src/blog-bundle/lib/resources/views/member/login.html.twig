@@ -1,0 +1,36 @@
+{% extends "blog-bundle:layout" %}
+
+{% set title = "Member Login" %}
+
+{% block body_content %}
+    <form action="/member/_login" method="POST">
+        <section>
+            <header>
+                {% if errors is defined %}
+                    <p class="error">Please correct the errors below</p>
+                {% else %}
+                    {% if signup is defined and signup %}
+                        <p>Thank you for signing up!</p>
+                    {% elseif denied is defined and denied %}
+                        <p>Access Denied</p>
+                    {% endif %}
+                    {% if failed is defined and failed %}
+                        <p>Login failed; try again.</p>
+                    {% else %}
+                        <p>Please complete the form below, to log in.</p>
+                    {% endif %}
+                {% endif %}
+            </header>
+
+            {# TODO: use a macro #}
+
+            {% include "blog-bundle:partials/form/input" with {errors, name: 'email', label: 'Email', type: 'email'} %}
+
+            {% include "blog-bundle:partials/form/input" with {errors, name: 'password', label: 'Password', type: 'password'} %}
+
+            <footer>
+                <button type="submit" class="action">Continue</button>
+            </footer>
+        </section>
+    </form>
+{% endblock %}

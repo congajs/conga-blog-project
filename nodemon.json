@@ -1,0 +1,7 @@
+{
+    "ignore": [
+        "app/public/*",
+        "src/*/lib/resources/public/*",
+        "var/*"
+    ]
+}

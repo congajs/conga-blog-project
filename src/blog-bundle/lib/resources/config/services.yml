@@ -1,0 +1,10 @@
+parameters:
+
+services:
+    
+    # The validation_error twig filter
+    twig.filter.validation_error:
+        constructor: blog-bundle:twig/FilterValidationError
+        arguments: []
+        tags:
+            - { name: twig.filter, method: register }

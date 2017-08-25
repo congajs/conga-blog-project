@@ -1,0 +1,148 @@
+################################################################################
+## This is the main config file to configure the various bundles
+################################################################################
+
+# import other config files
+imports:
+
+    - { resource : parameters.yml }
+    - { resource : bundles.yml }
+    - { resource : security.yml }
+
+# ------------------------------------------------------------------------------
+# @conga/framework
+#
+# This is the core framework bundle which provides the service container,
+# routing, annotation parsing, express server, etc.
+# ------------------------------------------------------------------------------
+framework:
+
+    # application settings
+    app:
+        host:  "%app.http.host%"
+        port:  "%app.http.port%"
+
+# ------------------------------------------------------------------------------
+# @conga/framework-bass
+#
+# This bundle includes and configures the bass ORM/ODM which provides adapters
+# to a variety of storage engines including MySQL/PostgreSQL/MongoDB/Redis/NeDB
+# ------------------------------------------------------------------------------
+bass:
+
+    # the adapters
+    adapters:
+        #- bass-nedb
+        - bass-mongodb
+
+    # the db connections
+    connections:
+
+        session:
+            #adapter:  bass-nedb
+            #directory: "%kernel.var_path%/data/sess"
+
+            adapter:  bass-mongodb
+            database: "%mongodb.database.session%"
+            host:     "%mongodb.host.session%"
+            port:     "%mongodb.port.session%"
+
+        blog:
+            #adapter:  bass-nedb
+            #directory: "%kernel.var_path%/data/blog"
+
+            adapter:  bass-mongodb
+            database: "%mongodb.database.blog%"
+            host:     "%mongodb.host.blog%"
+            port:     "%mongodb.port.blog%"
+
+    # the managers
+    managers:
+
+        session:
+            #adapter:     bass-nedb
+            adapter:     bass-mongodb
+            connection:  session
+            documents:
+                session: blog-bundle:model/session
+
+        blog:
+            #adapter:    bass-nedb
+            adapter:    bass-mongodb
+            connection: blog
+            documents:
+                blog-bundle: blog-bundle:model
+
+# ------------------------------------------------------------------------------
+# @conga/framework-session
+#
+# This bundles allows you to configure your session and session store settings
+# ------------------------------------------------------------------------------
+session:
+
+    # see https://github.com/expressjs/session for info
+
+    secret: 'conga-blog-project-session-secret'
+    resave: true
+    saveUninitialized: true
+
+    mixins:
+        enabled: true
+
+    cookie:
+        name: conga.sid
+
+#    store:
+#        # hooked up to the bass-express-session module
+#        # this lets us use our configured bass adapters, managers and documents for session storage
+#        module: "@conga/bass-express-session"
+#        options:
+#            ttl: 300                         # time to live, in seconds
+#            bass: ${bass.listener::getBass}  # reference to the bass service (or bass.createSession() instance)
+#            manager: session                 # the bass manager to use
+#            document: Session                # the document used for sessions
+#            expireField: expiresAt           # the field in the document that contains the expiration date
+#            dataField: data                  # the field that holds all the session data
+
+# ------------------------------------------------------------------------------
+# @conga/framework-rest
+#
+# This bundle allows you to create controllers which automatically provide
+# RESTful actions which are associated with annotated resource entities which
+# are automatically serialized to standard or custom specifications
+# ------------------------------------------------------------------------------
+rest:
+    resource:
+        paths:
+            - blog-bundle:model
+
+# ------------------------------------------------------------------------------
+# @conga/framework-validation
+#
+# This bundle provides the various @Assert:* annotation to add validation rules
+# to models/resources
+# ------------------------------------------------------------------------------
+validation:
+
+    paths:
+        - blog-bundle:model
+
+# ------------------------------------------------------------------------------
+# @conga/framework-view
+#
+# This bundle provides the @Template annotation in controllers to automatically
+# render an action using an attached templating engine (twig.js by default)
+# ------------------------------------------------------------------------------
+view:
+
+    # the default engine to use when one isn't specified in @Template
+    default.engine: twig
+
+
+# ------------------------------------------------------------------------------
+# FOR webpack - @conga/framework-webpack - SEE config_development.yml
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+# FOR profiler - @conga/framework-profiler - SEE config_development.yml
+# ------------------------------------------------------------------------------

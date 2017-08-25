@@ -1,0 +1,12 @@
+{% set error = errors is defined and errors|validation_error(name) %}
+<div class="form-item{% if error %} error{% endif %}">
+    <label>
+        <span>{{ label|default(name) }}</span>
+        <input type="{{ type|default('text') }}" name="{{ name }}" value="{{ value|default('') }}" />
+    </label>
+    {% if error %}
+        <p class="error">
+            <span>{{ error }}</span>
+        </p>
+    {% endif %}
+</div>

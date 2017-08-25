@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+    <head>
+        {# twig has a lot of built-in filters, like default, and you can make your own #}
+        <title>{{ title|default('CongaJS Default Title') }}</title>
+    </head>
+    <body>
+        {# blocks are inherited by extending templates and can be overwritten #}
+        {% block body %}
+
+            {# blocks can be nested #}
+            {% block header %}
+                <header>
+                    {# you can use if conditions in your template #}
+                    {% if title is defined %}
+                        <h1>{{ title }}</h1>
+                    {% endif %}
+
+                    {% block header_aside %}
+                        <aside>
+                            {% if credentials is defined and credentials %}
+                                <p>You are logged in as {{ credentials.login }}</p>
+                            {% else %}
+                                <p>Make sure you sign up / log in to view our private content!</p>
+                            {% endif %}
+                        </aside>
+                    {% endblock %}
+
+                    {% block header_nav %}
+                        <nav><ul>
+                            <li><a href="/" title="Home">Home</a></li>
+
+                            {% if navigation is defined %}
+                                {# you can write custom loops in your template #}
+                                {% for nav in navigation %}
+                                    <li><a href="{{ nav.href }}">
+                                        {# to print variables in your HTML, use double
+                                           curley braces #}
+                                        {{ nav.title }}
+                                    </a></li>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if credentials is defined and credentials %}
+                                <li><a href="/member" title="Account Dashboard">Account Dashboard</a></li>
+                                <li><a href="/member/logout" title="Log Out">Log Out</a></li>
+                            {% else %}
+                                <li><a href="/member/login" title="Account Login">Log In</a></li>
+                                <li><a href="/member/signup" title="Account Signup">Sign Up</a></li>
+                            {% endif %}
+                        </ul></nav>
+                    {% endblock %}  {# you don't need to specify the block name when you close it #}
+
+                    <div class="header-content">
+                        {#
+                            you can use the shorthand syntax when providing a default value for a block
+
+                            this statement says to make a block whose content will render exactly here,
+                            but it has no content by default.
+
+                            you have to overwrite this block in your extending template if you want
+                            content here
+                        #}
+                        {% block header_text '' %}
+                    </div>
+                </header>
+            {% endblock header %}
+
+            <section id="body-content">
+                {% block body_message %}
+                    {% if message is defined and message|length != 0 %}
+                        <div id="site-message">
+                            <h3 class="message">{{ message }}</h3>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+
+                {% block body_content %}
+                    <h1>Page Body</h1>
+                    <p>If you want to give your layout content, overwrite the "body_content"
+                        block in your template.</p>
+                {% endblock %}
+            </section>
+
+        {% endblock body %}
+    </body>
+</html>

@@ -1,0 +1,33 @@
+{# inherit from the layout template #}
+{% extends "blog-bundle:layout" %}
+
+{% block header_aside '' %}
+{% block header_nav '' %}
+
+{# overwrite the "body_content" with the content for this template #}
+{# this gets injected into our layout #}
+{% block body_content %}
+    <p>{{ content }}</p>
+
+    <dl>
+        <dt>Conga Version</dt>
+        <dd>{{ conga_version }}</dd>
+
+        <dt>Environment</dt>
+        <dd>{{ environment }}</dd>
+
+        <dt>Installed Bundles</dt>
+        <dd>
+            <ol>
+                {% for name in installed_bundles %}
+                    <li>{{ name }}</li>
+                {% endfor %}
+            </ol>
+        </dd>
+
+        {% for key in Object.keys(os) %}
+            <dt>{{ key|upper }}</dt>
+            <dd>{{ os[key] }}</dd>
+        {% endfor %}
+    </dl>
+{% endblock %}

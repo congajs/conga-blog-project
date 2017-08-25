@@ -1,0 +1,28 @@
+################################################################################
+## This file overrides config settings for the "production" environment
+################################################################################
+
+imports:
+    - { resource : config.yml }
+
+parameters:
+
+    # change the error template for production sites
+    conga.templates:
+        exception:
+            error500:
+                namespace: "blog-bundle:exception"
+                engine: "twig"
+
+framework:
+
+    logger:
+
+        # log to console for development mode
+        default:
+            type: file
+            level: DEBUG
+            options:
+                filename:     "%kernel.var_path%/logs/%kernel.environment%.log"
+                max_log_size: 20480
+                backups:      3

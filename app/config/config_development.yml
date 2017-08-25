@@ -1,0 +1,88 @@
+################################################################################
+## This file overrides config settings for the "development" environment
+################################################################################
+
+imports:
+    - { resource : config.yml }
+
+# overwrite framework configuration for the dev environment
+framework:
+
+    logger:
+
+        # log to console for development mode
+        default:
+            type: console
+            level: DEBUG
+
+# ------------------------------------------------------------------------------
+# @conga/framework-webpack
+#
+# This bundle provides webpack middleware for in-memory compilation and hot
+# reloading in development mode. It also provides the "conga webpack:compile"
+# command to compile the final production files with cache busted filenames
+# ------------------------------------------------------------------------------
+webpack:
+
+    # turn development mode on/off (dev middleware / hot reloading)
+    development: true
+
+    # the public path to publish files in dev mode under
+    public.path: /build/
+
+    # the paths to all the config files
+    config.paths:
+        - "blog-bundle:resources/public/webpack/webpack.common.js"
+
+# ------------------------------------------------------------------------------
+# @conga/framework-profiler
+#
+# ------------------------------------------------------------------------------
+profiler:
+
+    # optional, if omitted, true is used
+    # possible values are true, false, request
+    # request means, only enabled for matched requests
+    enabled: request
+
+    # optional, if omitted, true is used
+    # specify whether to enable the dashboard
+    dashboard: true
+
+    # optional, if omitted, true is used
+    # specify whether or not to collect configuration data on each request
+    collect_config: false
+
+    # required
+    bass:
+        manager: profiler
+
+    # optional, if omitted, true is used with defaults
+    monitoring:
+        enabled: true
+        delay_idle: 2000
+        delay_request: 500
+        #persist: request
+        persist: all
+
+    # optional
+    security:
+        authenticator: '@security.firewall.authenticator.http_basic'
+        provider:
+            memory:
+                users:
+                    profiler:
+                        # let-me-in
+                        password: aW4tbWVtb3J5LXBlcHBlcmluLW1lbW9yeS1zYWx0bGV0LW1lLWlu
+                        roles: ROLE_PROFILER
+
+    # optional
+    # even if not enabled, matchers may trigger a profiler on a request
+    matchers:
+        local:
+            ip: ::ffff:10.0.2.2
+
+        foo:
+            route: ^/api/blah/some/component
+
+        bar: '@service.id'
