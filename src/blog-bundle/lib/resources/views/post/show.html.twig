@@ -1,0 +1,13 @@
+{# inherit from the layout template #}
+{% extends "blog-bundle:layout" %}
+
+{% block header_aside '' %}
+{% block header_nav '' %}
+
+{# overwrite the "body_content" with the content for this template #}
+{# this gets injected into our layout #}
+{% block body_content %}
+    <h1>{{ post.title }}</h1>
+
+    <p>{{ post.body }}</p>
+{% endblock %}
