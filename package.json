@@ -20,6 +20,7 @@
     "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
     "@conga/framework-view": "^2.0.0",
     "@conga/framework-view-twig": "^2.0.0",
+    "@conga/framework-webpack": "^2.0.0",
     "bass-mongodb": "^1.0.0",
     "bass-nedb": "^1.0.7",
     "lodash": "^4.17.4",
