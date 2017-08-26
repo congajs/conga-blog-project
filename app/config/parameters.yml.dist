@@ -6,3 +6,16 @@ parameters:
 
     app.http.host: localhost
     app.http.port: 3000
+
+    mongodb.database.session: session
+    mongodb.host.session: localhost
+    mongodb.port.session: 27017
+
+    mongodb.database.blog: blog
+    mongodb.host.blog: localhost
+    mongodb.port.blog: 27017
+
+    profiler.database.adapter: bass-mongodb
+    profiler.database: profiler
+    profiler.database.host: localhost
+    profiler.database.port: 27017

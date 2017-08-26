@@ -31,26 +31,26 @@
 
             {% block header_nav %}
                 <nav><ul>
-                        <li><a href="/" title="Home">Home</a></li>
+                    <li><a href="/" title="Home">Home</a></li>
 
-                        {% if navigation is defined %}
-                            {# you can write custom loops in your template #}
-                            {% for nav in navigation %}
-                                <li><a href="{{ nav.href }}">
-                                    {# to print variables in your HTML, use double
-                                       curley braces #}
-                                    {{ nav.title }}
-                                </a></li>
-                            {% endfor %}
-                        {% endif %}
+                    {% if navigation is defined %}
+                        {# you can write custom loops in your template #}
+                        {% for nav in navigation %}
+                            <li><a href="{{ nav.href }}">
+                                {# to print variables in your HTML, use double
+                                   curley braces #}
+                                {{ nav.title }}
+                            </a></li>
+                        {% endfor %}
+                    {% endif %}
 
-                        {% if credentials is defined and credentials %}
-                            <li><a href="/admin" title="Admin Dashboard">Admin Dashboard</a></li>
-                            <li><a href="/admin/logout" title="Log Out">Log Out</a></li>
-                        {% else %}
-                            <li><a href="/admin/login" title="Admin Login">Log In</a></li>
-                        {% endif %}
-                    </ul></nav>
+                    {% if credentials is defined and credentials %}
+                        <li><a href="/admin" title="Admin Dashboard">Admin Dashboard</a></li>
+                        <li><a href="/admin/logout" title="Log Out">Log Out</a></li>
+                    {% else %}
+                        <li><a href="/admin/login" title="Admin Login">Log In</a></li>
+                    {% endif %}
+                </ul></nav>
             {% endblock %}  {# you don't need to specify the block name when you close it #}
 
             <div class="header-content">

@@ -10,7 +10,9 @@ package-lock.json
 
 # app
 app/config/parameters.yml
+app/public/bundles/*
 var/*/*
+
 
 # app tests
 spec/data/projects/sample/var/*
