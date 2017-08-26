@@ -16,16 +16,14 @@ module.exports = class PostController extends Controller {
 
         const manager = this.container.get('bass').createSession().getManager('blog');
 
-        manager.findOneBy('Post', { slug: '/' + req.params.slug }).then(post => {
+        return manager.findOneBy('Post', { slug: '/' + req.params.slug }).then(post => {
 
             console.log(post);
 
-            res.return({
-                post: post
-            });
+            return { post };
 
         });
 
     }
 
-}
+};

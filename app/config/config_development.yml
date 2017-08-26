@@ -7,9 +7,7 @@ imports:
 
 # overwrite framework configuration for the dev environment
 framework:
-
     logger:
-
         # log to console for development mode
         default:
             type: console
@@ -23,7 +21,6 @@ framework:
 # command to compile the final production files with cache busted filenames
 # ------------------------------------------------------------------------------
 webpack:
-
     # turn development mode on/off (dev middleware / hot reloading)
     development: true
 
@@ -39,11 +36,10 @@ webpack:
 #
 # ------------------------------------------------------------------------------
 profiler:
-
     # optional, if omitted, true is used
     # possible values are true, false, request
     # request means, only enabled for matched requests
-    enabled: request
+    enabled: true
 
     # optional, if omitted, true is used
     # specify whether to enable the dashboard
@@ -60,29 +56,32 @@ profiler:
     # optional, if omitted, true is used with defaults
     monitoring:
         enabled: true
-        delay_idle: 2000
+        delay_idle: 25000
         delay_request: 500
-        #persist: request
-        persist: all
+        persist: request
+        #persist: all
 
     # optional
-    security:
-        authenticator: '@security.firewall.authenticator.http_basic'
-        provider:
-            memory:
-                users:
-                    profiler:
-                        # let-me-in
-                        password: aW4tbWVtb3J5LXBlcHBlcmluLW1lbW9yeS1zYWx0bGV0LW1lLWlu
-                        roles: ROLE_PROFILER
+#    security:
+#        authenticator: '@security.firewall.authenticator.http_basic'
+#        provider:
+#            memory:
+#                users:
+#                    conga@profiler:
+#                        # let-me-in
+#                        password: aW4tbWVtb3J5LXBlcHBlcmluLW1lbW9yeS1zYWx0bGV0LW1lLWlu
+#                        roles: ROLE_PROFILER
 
     # optional
     # even if not enabled, matchers may trigger a profiler on a request
-    matchers:
-        local:
-            ip: ::ffff:10.0.2.2
-
-        foo:
-            route: ^/api/blah/some/component
-
-        bar: '@service.id'
+#    matchers:
+#        local:
+#            ip: ::ffff:10.0.2.2
+#
+#        noprofile:
+#            route: ^/(?!_profiler/)
+#
+#        foo:
+#            route: ^/api/blah/some/component
+#
+#        bar: '@service.id'
