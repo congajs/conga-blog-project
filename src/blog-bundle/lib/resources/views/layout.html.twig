@@ -3,13 +3,19 @@
     <head>
         {# twig has a lot of built-in filters, like default, and you can make your own #}
         <title>{{ title|default('CongaJS Default Title') }}</title>
+
+        <link rel="stylesheet" href="{{ webpack_asset('blog', 'css') }}" />
+        <script src="{{ webpack_asset('blog', 'js') }}"></script>
+        
     </head>
     <body>
         {# blocks are inherited by extending templates and can be overwritten #}
         {% block body %}
 
+            {% include 'blog-bundle:navbar.html.twig' %}
+
             {# blocks can be nested #}
-            {% block header %}
+            <!-- {% block header %}
                 <header>
                     {# you can use if conditions in your template #}
                     {% if title is defined %}
@@ -64,24 +70,32 @@
                         {% block header_text '' %}
                     </div>
                 </header>
-            {% endblock header %}
+            {% endblock header %} -->
 
-            <section id="body-content">
-                {% block body_message %}
-                    {% if message is defined and message|length != 0 %}
-                        <div id="site-message">
-                            <h3 class="message">{{ message }}</h3>
-                        </div>
-                    {% endif %}
-                {% endblock %}
+            {% block hero %}{% endblock %}
 
-                {% block body_content %}
-                    <h1>Page Body</h1>
-                    <p>If you want to give your layout content, overwrite the "body_content"
-                        block in your template.</p>
-                {% endblock %}
+
+            <section class="section">
+                <div class="container">
+                    <!-- {% block body_message %}
+                        {% if message is defined and message|length != 0 %}
+                            <div id="site-message">
+                                <h3 class="message">{{ message }}</h3>
+                            </div>
+                        {% endif %}
+                    {% endblock %} -->
+
+                    {% block body_content %}
+                        <h1>Page Body</h1>
+                        <p>If you want to give your layout content, overwrite the "body_content"
+                            block in your template.</p>
+                    {% endblock %}
+                </div>
             </section>
 
+            {% include 'blog-bundle:footer.html.twig' %}
+
         {% endblock body %}
+
     </body>
 </html>

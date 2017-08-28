@@ -1,3 +1,4 @@
+const marked = require('marked');
 const slug = require('slug');
 
 /**
@@ -49,6 +50,12 @@ module.exports = class Post {
         };
 
         /**
+         * @Bass:Field(type="Boolean", name="is_featured")
+         * @Rest:Attribute(type="Boolean")
+         */
+        this.isFeatured = false;
+
+        /**
          * @Bass:Field(type="Array", name="is_private")
          * @Rest:Attribute(type="Boolean")
          */
@@ -89,6 +96,12 @@ module.exports = class Post {
          * @Rest:Attribute
          */
         this.body = null;
+
+        /**
+         * @Bass:Field(type="String", name="image")
+         * @Rest:Attribute
+         */
+        this.image = null;
 
         /**
          * @Bass:Field(type="Array", name="links")
@@ -132,8 +145,19 @@ module.exports = class Post {
      * @-Bass:PreUpdate
      */
     onPrePersist(evt, cb) {
-        this.slug = '/' + slug(this.title, { lower: true });
+        this.slug = slug(this.title, { lower: true });
         cb();
+    }
+
+    /**
+     * Get the Post body as HTML converted from markdown
+     *
+     * @Rest:Attribute(property="html", update=false)
+     *
+     * @return {String}
+     */
+    getBodyAsHtml() {
+        return marked(this.body);
     }
 
 };

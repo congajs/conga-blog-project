@@ -9,14 +9,14 @@ const { Controller } = require('@conga/framework');
 module.exports = class PostController extends Controller {
 
     /**
-     * @Route("/:slug")
+     * @Route("/:slug", name="show_post")
      * @Template
      */
     show(req, res) {
 
         const manager = this.container.get('bass').createSession().getManager('blog');
 
-        return manager.findOneBy('Post', { slug: '/' + req.params.slug }).then(post => {
+        return manager.findOneBy('Post', { slug: req.params.slug }).then(post => {
 
             console.log(post);
 

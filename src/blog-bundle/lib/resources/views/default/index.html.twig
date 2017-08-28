@@ -4,30 +4,120 @@
 {% block header_aside '' %}
 {% block header_nav '' %}
 
+
+{% block hero %}
+
+    <section class="hero is-medium is-primary is-bold">
+      <div class="hero-body" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <div class="container">
+            <div class="columns">
+                <div class="column three-quarters">
+          <h1 class="title is-1">
+            A <strong>conga.js</strong> blog example
+          </h1>
+          <h2 class="title is-4">
+            running conga.js v{{ conga_version }}
+          </h2>
+
+          <h3>Congrats! You are up and running!</h3>
+          <p>Take a look through this project to get an idea of how to use conga.js</p>
+
+                </div>
+                <div class="column">
+                    <img src="/images/congas.png" class="is-pulled-right">
+                </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
+
 {# overwrite the "body_content" with the content for this template #}
 {# this gets injected into our layout #}
 {% block body_content %}
-    <p>{{ content }}</p>
 
-    <dl>
-        <dt>Conga Version</dt>
-        <dd>{{ conga_version }}</dd>
+    <div class="columns">
 
-        <dt>Environment</dt>
-        <dd>{{ environment }}</dd>
+        <div class="column is-three-quarters">
 
-        <dt>Installed Bundles</dt>
-        <dd>
-            <ol>
-                {% for name in installed_bundles %}
-                    <li>{{ name }}</li>
+            <div class="card">
+              <div class="card-content">
+                <div class="">
+                  <div class="">
+                    <figure class="image">
+                      <img src="{{ featured.image }}"  style="filter: grayscale(50%);" alt="Image">
+                    </figure>
+                  </div>
+                  <div class="">
+                    <p class="title is-3"><a href="{{ url_for('show_post', { slug: featured.slug }) }}">{{ featured.title }}</a></p>
+                    <p class="subtitle is-6">by: {{ featured.author }}</p>
+                  </div>
+                </div>
+
+                <div class="content">
+                  {{ featured.bodyAsHtml | raw }}
+                  <small>{{ featured.createdAt }}</small>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="tile is-ancestor">
+
+                {% for post in posts %}
+
+                <div class="tile is-parent is-4">
+
+                    <article class="tile is-child">
+                        <p class="title is-4"><a href="{{ url_for('show_post', { slug: post.slug }) }}">{{ post.title }}</a></p>
+                        <p class="subtitle is-6">by {{ post.author }}</p>
+                        <figure class="image is-4by3">
+                            <img src="{{ post.image }}" style="filter: grayscale(60%);">
+                        </figure>
+                    </article>
+
+                </div>
+
                 {% endfor %}
-            </ol>
-        </dd>
 
-        {% for key in Object.keys(os) %}
-            <dt>{{ key|upper }}</dt>
-            <dd>{{ os[key] }}</dd>
-        {% endfor %}
-    </dl>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="column content">
+
+            <!-- <dl>
+                <dt class="title is-6">Conga Version</dt>
+                <dd>{{ conga_version }}</dd>
+
+                <dt class="title is-6">Environment</dt>
+                <dd>{{ environment }}</dd> -->
+
+                <div class="title is-6">Installed Bundles</div>
+                <!-- <dd> -->
+                    <div>
+                        {% for bundle in installed_bundles %}
+                            <div>
+                                {% if bundle.url is not null %}
+                                    <a href="{{ bundle.url }}" target="_blank">{{ bundle.name }}</a>
+                                {% else %}
+                                    {{ bundle.name }}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                <!-- </dd> -->
+
+                <!-- {% for key in Object.keys(os) %}
+                    <dt>{{ key|upper }}</dt>
+                    <dd>{{ os[key] }}</dd>
+                {% endfor %} -->
+            <!-- </dl> -->
+
+        </div>
+
 {% endblock %}

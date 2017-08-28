@@ -20,18 +20,30 @@
     "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
     "@conga/framework-view": "^2.0.0",
     "@conga/framework-view-twig": "^2.0.0",
-    "@conga/framework-webpack": "^2.0.0",
+    "@conga/framework-webpack": "congajs/conga-webpack",
     "bass-mongodb": "^1.0.0",
     "bass-nedb": "^1.0.7",
     "lodash": "^4.17.4",
+    "marked": "^0.3.6",
     "slug": "^0.9.1"
   },
   "devDependencies": {
-    "@conga/framework-webpack": "congajs/conga-webpack",
-    "@conga/framework-profiler": "congajs/conga-profiler",
+    "@conga/framework-profiler": "^2.0.0",
+    "bulma": "^0.5.1",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "font-awesome": "^4.7.0",
+    "font-awesome-loader": "^1.0.2",
+    "font-awesome-webpack": "0.0.5-beta.2",
     "jasmine": "^2.6.0",
+    "less": "^2.7.2",
+    "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "sass-loader": "^6.0.6",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.5.5",
+    "webpack-hot-middleware": "^2.18.2"
   },
   "readmeFilename": "README.md"
 }

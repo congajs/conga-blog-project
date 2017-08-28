@@ -1,0 +1,15 @@
+id: 3
+user_id: 1
+categories:
+    - general
+tags:
+    - getting started
+private: false
+featured: false
+author: c0nga m@ster
+title: Turn up the BASS
+image: /images/woofer-1885354_1280.png
+links:
+body: |
+
+    conga.js comes with it's own ODM: bass.js!!!

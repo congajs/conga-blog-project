@@ -26,3 +26,22 @@ framework:
                 filename:     "%kernel.var_path%/logs/%kernel.environment%.log"
                 max_log_size: 20480
                 backups:      3
+
+# ------------------------------------------------------------------------------
+# @conga/framework-webpack
+#
+# This bundle provides webpack middleware for in-memory compilation and hot
+# reloading in development mode. It also provides the "conga webpack:compile"
+# command to compile the final production files with cache busted filenames
+# ------------------------------------------------------------------------------
+webpack:
+
+    # turn development mode on/off (dev middleware / hot reloading)
+    development: false
+
+    # the public path to publish files in dev mode under
+    public.path: /dist/
+
+    # the paths to all the config files
+    config.paths:
+        - "blog-bundle:resources/public-src/webpack.production.js"

@@ -1,0 +1,15 @@
+id: 2
+user_id: 1
+categories:
+    - general
+tags:
+    - getting started
+private: false
+featured: false
+author: c0nga m@ster
+title: Get some REST
+image: /images/the-pink-panther-1653913_1280.jpg
+links:
+body: |
+
+    conga.js makes it easy to create complicated and flexible REST APIs with minimal effort.

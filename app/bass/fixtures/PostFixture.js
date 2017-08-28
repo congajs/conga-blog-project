@@ -34,7 +34,11 @@ module.exports = class PostFixture extends AbstractFixture {
 
         const manager = this.getManager();
 
+        console.log('load post fixtures');
+
         this.mapFromYmlDirectory(path.join(__dirname, 'data', 'posts'), (model, row, idx, cb) => {
+
+            console.log(row);
 
             model.referenceId = row.id;
             model.user = this.getReference('user-' + row.user_id);
@@ -43,6 +47,8 @@ module.exports = class PostFixture extends AbstractFixture {
             model.title = row.title;
             model.body = row.body;
             model.author = row.author;
+            model.isFeatured = row.featured || false;
+            model.image = row.image || null;
 
             // add a reference to this user so other fixtures can reference it
             this.addReference('post-' + row.id, model);

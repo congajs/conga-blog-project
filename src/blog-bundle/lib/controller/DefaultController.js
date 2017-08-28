@@ -27,20 +27,44 @@ module.exports = class DefaultController extends Controller {
      */
     index(req, res) {
 
-        res.return({
-            title: 'Congratulations!',
-            message: "Congrats! If you are seeing this that means you have successfully created and started your project!",
-            content: "Take a look at src/blog-bundle/controller/DefaultController.js to see this route's controller",
-            conga_version: this.container.getParameter('conga.version'),
-            environment: this.container.getParameter('kernel.environment'),
-            installed_bundles: this.container.getParameter('app.bundles'),
-            os: {
-                cpus: os.cpus().length,
-                hostname: os.hostname(),
-                type: os.type(),
-                platform: os.platform(),
-                release: os.release()
-            }
+        return new Promise((resolve, reject) => {
+
+            const manager = this.container.get('bass').createSession().getManager('blog');
+
+            manager.findOneBy('Post', {
+                isFeatured: true
+            }).then(post => {
+
+                manager.findBy('Post', { isFeatured: false }).then((posts) => {
+
+                    const bundles = [];
+
+                    this.container.getParameter('app.bundles').sort().forEach((bundle) => {
+                        bundles.push({
+                            name: bundle,
+                            url: bundle[0] === '@' ? 'https://www.npmjs.com/package/' + bundle : null
+                        });
+                    });
+
+                    resolve({
+                        conga_version: this.container.getParameter('conga.version'),
+                        environment: this.container.getParameter('kernel.environment'),
+                        installed_bundles: bundles,
+                        os: {
+                            cpus: os.cpus().length,
+                            hostname: os.hostname(),
+                            type: os.type(),
+                            platform: os.platform(),
+                            release: os.release()
+                        },
+                        featured: post,
+                        posts: posts
+                    });
+
+                });
+
+            }).catch(reject);
+
         });
 
     }

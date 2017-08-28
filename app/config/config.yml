@@ -58,11 +58,6 @@ bass:
             host:     "%mongodb.host.blog%"
             port:     "%mongodb.port.blog%"
 
-        profiler:
-            adapter: "%profiler.database.adapter%"
-            database: "%profiler.database%"
-            host: "%profiler.database.host%"
-            port: "%profiler.database.port%"
 
     # the managers
     managers:
@@ -81,12 +76,6 @@ bass:
             documents:
                 blog-bundle: blog-bundle:model
                 #conga-profiler: "@conga/framework-profiler:model"
-
-        profiler:
-            adapter: "%profiler.database.adapter%"
-            connection: profiler
-            documents:
-                conga-profiler: "@conga/framework-profiler:model"
 
 # ------------------------------------------------------------------------------
 # @conga/framework-session

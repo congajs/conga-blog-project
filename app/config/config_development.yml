@@ -13,6 +13,26 @@ framework:
             type: console
             level: DEBUG
 
+bass:
+
+    connections:
+
+        profiler:
+
+            adapter: "%profiler.database.adapter%"
+            database: "%profiler.database%"
+            host: "%profiler.database.host%"
+            port: "%profiler.database.port%"
+
+    managers:
+
+        profiler:
+            adapter: "%profiler.database.adapter%"
+            connection: profiler
+            documents:
+                conga-profiler: "@conga/framework-profiler:model"
+
+
 # ------------------------------------------------------------------------------
 # @conga/framework-webpack
 #
@@ -21,15 +41,16 @@ framework:
 # command to compile the final production files with cache busted filenames
 # ------------------------------------------------------------------------------
 webpack:
+
     # turn development mode on/off (dev middleware / hot reloading)
     development: true
 
     # the public path to publish files in dev mode under
-    public.path: /build/
+    public.path: /dist
 
     # the paths to all the config files
     config.paths:
-        - "blog-bundle:resources/public/webpack/webpack.common.js"
+        - "blog-bundle:resources/public-src/webpack.common.js"
 
 # ------------------------------------------------------------------------------
 # @conga/framework-profiler

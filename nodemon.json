@@ -2,6 +2,9 @@
     "ignore": [
         "app/public/*",
         "src/*/lib/resources/public/*",
+        "src/*/lib/resources/public-src/*",
         "var/*"
-    ]
+    ],
+
+    "ext": "js json yml twig html"
 }

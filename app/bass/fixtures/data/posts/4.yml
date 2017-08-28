@@ -1,0 +1,15 @@
+id: 4
+user_id: 1
+categories:
+    - general
+tags:
+    - getting started
+private: false
+featured: false
+author: c0nga m@ster
+title: I Need Security
+image: /images/security-265130_1280.jpg
+links:
+body: |
+
+    conga.js makes it easy to create complicated and flexible REST APIs with minimal effort.

@@ -4,10 +4,33 @@
 {% block header_aside '' %}
 {% block header_nav '' %}
 
+{% block hero %}
+
+    <section class="hero is-medium is-dark is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-half">
+              <h1 class="title">{{ post.title }}</h1>
+              <h2 class="subtitle">
+                by {{ post.author }}
+              </h2>
+            </div>
+            <div class="column">
+                <img src="{{ post.image }}">
+            </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
+
 {# overwrite the "body_content" with the content for this template #}
 {# this gets injected into our layout #}
 {% block body_content %}
-    <h1>{{ post.title }}</h1>
 
-    <p>{{ post.body }}</p>
+    <div class="content">
+        <p>{{ post.bodyAsHtml | raw }}</p>
+    </div>
+
 {% endblock %}
