@@ -9,7 +9,7 @@ module.exports = {
     context: path.resolve(__dirname),
 
     entry: {
-        blog: ['webpack-hot-middleware/client?name=main', './js/app.js'],
+        blog: ['./js/app.js'], //['webpack-hot-middleware/client?name=main'],
     },
 
     output: {
