@@ -1,8 +1,11 @@
 # conga-blog-project
 
-This is a minimal project to get started with conga.js. It just includes the core @conga/framework and allows you to create annotated controllers which pass through the default JSON response handler.
+This is a conga.js demo project which demonstrates how to use many of the core conga bundles
+to create a real world application.
 
-Use this as a basis for a project and expand it with additional bundles to add template response handlers, database access, security, etc.
+Note: you must have mongodb installed and running in order to run this example.
+
+## Installation
 
 Clone this repository:
 
@@ -16,6 +19,10 @@ Change in to directory and install npm dependencies:
 Create the parameters config file:
 
     $ cp app/config/parameters.yml.dist app/config/parameters.yml
+
+Run the database fixtures to get initial demo data:
+
+    $ conga bass:fixtures
 
 To start up the application, run:
 
