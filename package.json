@@ -28,7 +28,7 @@
     "slug": "^0.9.1"
   },
   "devDependencies": {
-    "@conga/framework-profiler": "^2.0.0",
+    "@conga/framework-profiler": "congajs/conga-profiler",
     "bulma": "^0.5.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
