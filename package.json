@@ -15,7 +15,7 @@
     "@conga/framework": "^2.0.0",
     "@conga/framework-bass": "^2.0.0",
     "@conga/framework-dashboard": "congajs/conga-dashboard#master",
-    "@conga/framework-rest": "congajs/conga-rest#2.0.0-dev",
+    "@conga/framework-rest": "congajs/conga-rest#dashboard",
     "@conga/framework-security": "^2.0.0",
     "@conga/framework-session": "^2.0.0",
     "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
