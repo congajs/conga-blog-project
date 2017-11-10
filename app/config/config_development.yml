@@ -95,12 +95,12 @@ profiler:
 
     # optional
     # even if not enabled, matchers may trigger a profiler on a request
-#    matchers:
+    matchers:
 #        local:
 #            ip: ::ffff:10.0.2.2
 #
-#        noprofile:
-#            route: ^/(?!_profiler/)
+        # noprofile:
+        #    route: ^/_conga
 #
 #        foo:
 #            route: ^/api/blah/some/component

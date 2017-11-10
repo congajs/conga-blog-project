@@ -25,5 +25,5 @@ bundles:
     # add bundles that are only used for development
     development:
 
-        # - "@conga/framework-dashboard"
+        - "@conga/framework-dashboard"
         - "@conga/framework-profiler"

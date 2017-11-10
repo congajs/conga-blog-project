@@ -14,13 +14,14 @@
     "@conga/bass-express-session": "^1.0.0",
     "@conga/framework": "^2.0.0",
     "@conga/framework-bass": "^2.0.0",
+    "@conga/framework-dashboard": "congajs/conga-dashboard#master",
     "@conga/framework-rest": "congajs/conga-rest#2.0.0-dev",
     "@conga/framework-security": "^2.0.0",
     "@conga/framework-session": "^2.0.0",
     "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
     "@conga/framework-view": "^2.0.0",
     "@conga/framework-view-twig": "^2.0.0",
-    "@conga/framework-webpack": "congajs/conga-webpack",
+    "@conga/framework-webpack": "congajs/conga-webpack#master",
     "bass-mongodb": "^1.0.0",
     "bass-nedb": "^1.0.7",
     "lodash": "^4.17.4",
@@ -28,22 +29,16 @@
     "slug": "^0.9.1"
   },
   "devDependencies": {
-    "@conga/framework-profiler": "^2.0.0",
+    "@conga/framework-profiler": "congajs/conga-profiler",
     "bulma": "^0.5.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
-    "font-awesome": "^4.7.0",
-    "font-awesome-loader": "^1.0.2",
-    "font-awesome-webpack": "0.0.5-beta.2",
     "jasmine": "^2.6.0",
     "less": "^2.7.2",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
-    "request": "^2.81.0",
-    "sass-loader": "^6.0.6",
-    "url-loader": "^0.5.9",
-    "webpack": "^3.5.5",
-    "webpack-hot-middleware": "^2.18.2"
+    "object-sizeof": "^1.2.0",
+    "request": "^2.81.0"
   },
   "readmeFilename": "README.md"
 }
