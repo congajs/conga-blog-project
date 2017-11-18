@@ -62,14 +62,6 @@ profiler:
     # request means, only enabled for matched requests
     enabled: true
 
-    # optional, if omitted, true is used
-    # specify whether to enable the dashboard
-    dashboard: true
-
-    # optional, if omitted, true is used
-    # specify whether or not to collect configuration data on each request
-    collect_config: false
-
     # required
     bass:
         manager: profiler
@@ -90,19 +82,9 @@ profiler:
 #                users:
 #                    conga@profiler:
 #                        # let-me-in
-#                        password: aW4tbWVtb3J5LXBlcHBlcmluLW1lbW9yeS1zYWx0bGV0LW1lLWlu
+#                        password: JDJhJDEwJHJFRGFaZ3BzTFgwNUZORmVGYloxdS4wZlNhbGRQMThnMW12SGJNZ3lPOFRORjg1Vk8uNnph
 #                        roles: ROLE_PROFILER
 
     # optional
-    # even if not enabled, matchers may trigger a profiler on a request
-    matchers:
-#        local:
-#            ip: ::ffff:10.0.2.2
-#
-        # noprofile:
-        #    route: ^/_conga
-#
-#        foo:
-#            route: ^/api/blah/some/component
-#
-#        bar: '@service.id'
+    # if you are working on the dashboard and want to profile the requests
+    profile_dashboard: false

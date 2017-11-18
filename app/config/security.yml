@@ -177,7 +177,7 @@ security:
         # of these pages with an existing auth-token, we know who you are, since our firewall
         # realms are isolated
         landing_pages:
-            route: ^/             # every route (not already behind a firewall)
+            route: ^/(?!_conga)   # every route (not already behind a firewall - except dashboard)
             shared: true          # access from any other firewall is accepted
             stateless: false      # we use session state
             anonymous: true       # anonymous access is also allowed
