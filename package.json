@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@conga/bass-express-session": "^1.0.0",
-    "@conga/framework": "^2.0.0",
+    "@conga/framework": "congajs/conga-framework#dashboard",
     "@conga/framework-bass": "^2.0.0",
     "@conga/framework-dashboard": "congajs/conga-dashboard#master",
-    "@conga/framework-rest": "congajs/conga-rest#dashboard",
+    "@conga/framework-rest": "congajs/conga-rest#dashboard-updates",
     "@conga/framework-security": "^2.0.0",
     "@conga/framework-session": "^2.0.0",
     "@conga/framework-validation": "congajs/conga-validation#2.0.0-dev",
@@ -29,7 +29,7 @@
     "slug": "^0.9.1"
   },
   "devDependencies": {
-    "@conga/framework-profiler": "congajs/conga-profiler",
+    "@conga/framework-profiler": "congajs/conga-profiler#master",
     "bulma": "^0.5.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
