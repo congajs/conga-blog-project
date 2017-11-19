@@ -21,7 +21,25 @@ framework:
         # log to console for development mode
         default:
             type: file
-            level: DEBUG
+            level: INFO
+            options:
+                filename:     "%kernel.var_path%/logs/%kernel.environment%.log"
+                max_log_size: 20480
+                backups:      3
+
+        # bass profiler logger
+        bass.profiler:
+            type: file
+            level: ERROR
+            options:
+                filename:     "%kernel.var_path%/logs/%kernel.environment%.log"
+                max_log_size: 20480
+                backups:      3
+
+        # bass session manager logger
+        bass.session:
+            type: file
+            level: INFO
             options:
                 filename:     "%kernel.var_path%/logs/%kernel.environment%.log"
                 max_log_size: 20480

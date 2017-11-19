@@ -13,12 +13,25 @@ framework:
             type: console
             level: DEBUG
 
+        # prevent the profiler from showing queries in the console
+        bass.profiler:
+            type: console
+            level: ERROR
+
+        # prevent the session from showing queries in the console
+        bass.session:
+            type: console
+            level: ERROR
+
 bass:
+
+    logging:
+
+        profiler: "@logger.bass.profiler"
 
     connections:
 
         profiler:
-
             adapter: "%profiler.database.adapter%"
             database: "%profiler.database%"
             host: "%profiler.database.host%"
@@ -29,6 +42,7 @@ bass:
         profiler:
             adapter: "%profiler.database.adapter%"
             connection: profiler
+            logger: profiler
             documents:
                 conga-profiler: "@conga/framework-profiler:model"
 

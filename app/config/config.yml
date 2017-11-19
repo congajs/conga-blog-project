@@ -32,6 +32,11 @@ bass:
 
     request_scope: true
 
+    # custom loggers
+    logging:
+        # change the session manager's logging level to error (see environment specific config)
+        session: "@logger.bass.session"
+
     # the adapters
     adapters:
         #- bass-nedb
@@ -66,6 +71,7 @@ bass:
             #adapter:     bass-nedb
             adapter:     bass-mongodb
             connection:  session
+            logger: session
             documents:
                 session: blog-bundle:model/session
 
@@ -102,7 +108,7 @@ session:
 #        module: "@conga/bass-express-session"
 #        options:
 #            ttl: 300                         # time to live, in seconds
-#            bass: ${bass.listener::getBass}  # reference to the bass service (or bass.createSession() instance)
+#            bass: ${conga-bass::bass}        # reference to the bass service (or bass.createSession() instance)
 #            manager: session                 # the bass manager to use
 #            document: Session                # the document used for sessions
 #            expireField: expiresAt           # the field in the document that contains the expiration date
