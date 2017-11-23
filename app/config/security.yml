@@ -167,6 +167,21 @@ security:
                     login_field: email                           # (required) the login / username field in the form post data (required)
                     secret_field: password                       # (required) the secret / password field in the form post data (required)
 
+        ### -
+        # Must be last.
+        #
+        # Landing pages are all the pages that don't require authentication, like the home page.
+        #
+        # Here, we define a firewall for all routes that don't already have one, so that we can
+        # allow shared sessions from other realms.  The purpose is so that when you visit one
+        # of these pages with an existing auth-token, we know who you are, since our firewall
+        # realms are isolated
+        landing_pages:
+            route: ^/(?!_conga)   # every route (not already behind a firewall)
+            shared: true          # access from any other firewall is accepted
+            stateless: false      # we use session state
+            anonymous: true       # anonymous access is also allowed
+
     #---------------------------------------------------------------------------
     # This section allows you to configure authenticators for your firewall
     #

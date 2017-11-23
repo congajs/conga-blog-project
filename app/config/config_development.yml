@@ -13,12 +13,25 @@ framework:
             type: console
             level: DEBUG
 
+        # prevent the profiler from showing queries in the console
+        bass.profiler:
+            type: console
+            level: ERROR
+
+        # prevent the session from showing queries in the console
+        bass.session:
+            type: console
+            level: ERROR
+
 bass:
+
+    logging:
+
+        profiler: "@logger.bass.profiler"
 
     connections:
 
         profiler:
-
             adapter: "%profiler.database.adapter%"
             database: "%profiler.database%"
             host: "%profiler.database.host%"
@@ -29,6 +42,7 @@ bass:
         profiler:
             adapter: "%profiler.database.adapter%"
             connection: profiler
+            logger: profiler
             documents:
                 conga-profiler: "@conga/framework-profiler:model"
 
@@ -62,14 +76,6 @@ profiler:
     # request means, only enabled for matched requests
     enabled: true
 
-    # optional, if omitted, true is used
-    # specify whether to enable the dashboard
-    dashboard: true
-
-    # optional, if omitted, true is used
-    # specify whether or not to collect configuration data on each request
-    collect_config: false
-
     # required
     bass:
         manager: profiler
@@ -90,19 +96,9 @@ profiler:
 #                users:
 #                    conga@profiler:
 #                        # let-me-in
-#                        password: aW4tbWVtb3J5LXBlcHBlcmluLW1lbW9yeS1zYWx0bGV0LW1lLWlu
+#                        password: JDJhJDEwJHJFRGFaZ3BzTFgwNUZORmVGYloxdS4wZlNhbGRQMThnMW12SGJNZ3lPOFRORjg1Vk8uNnph
 #                        roles: ROLE_PROFILER
 
     # optional
-    # even if not enabled, matchers may trigger a profiler on a request
-#    matchers:
-#        local:
-#            ip: ::ffff:10.0.2.2
-#
-#        noprofile:
-#            route: ^/(?!_profiler/)
-#
-#        foo:
-#            route: ^/api/blah/some/component
-#
-#        bar: '@service.id'
+    # if you are working on the dashboard and want to profile the requests
+    profile_dashboard: false

@@ -3,7 +3,7 @@
  */
 
 import 'bulma';
-import 'font-awesome/scss/font-awesome.scss';
+// import 'font-awesome/scss/font-awesome.scss';
 import '../css/layout.css';
 
-console.log('LOADED APP13');
+console.log('LOADED APP');

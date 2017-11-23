@@ -77,7 +77,7 @@ module.exports = class User {
         /**
          * @Bass:Version
          * @Bass:Field(type="Number", name="version")
-         * @Rest:Attribute(update=false)
+         * @Rest:Attribute(type="Number", update=false)
          */
         this.version = 0;
 

@@ -11,4 +11,11 @@ const Controller = require('@conga/framework-rest').BassRestController;
  */
 module.exports = class UserController extends Controller {
 
+    /**
+     * @Route("/custom", methods=['GET'])
+     */
+    custom(req, res) {
+
+    }
+
 }
