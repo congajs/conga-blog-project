@@ -26,47 +26,35 @@ module.exports = class DefaultController extends Controller {
      * @param {Object} res The response object
      */
     index(req, res) {
+        // set up the return data
+        const data = {
+            conga_version: this.container.getParameter('conga.version'),
+            environment: this.container.getParameter('kernel.environment'),
+            installed_bundles: this.container.getParameter('app.bundles').sort().map(name => ({
+                name,
+                url: name[0] === '@' ? 'https://www.npmjs.com/package/' + name : null
+            })),
+            os: {
+                cpus: os.cpus().length,
+                hostname: os.hostname(),
+                type: os.type(),
+                platform: os.platform(),
+                release: os.release()
+            },
+            featured: null,
+            posts: null
+        };
 
-        return new Promise((resolve, reject) => {
-
-            const manager = this.container.get('bass').createSession().getManager('blog');
-
-            manager.findOneBy('Post', {
-                isFeatured: true
-            }).then(post => {
-
-                manager.findBy('Post', { isFeatured: false }).then((posts) => {
-
-                    const bundles = [];
-
-                    this.container.getParameter('app.bundles').sort().forEach((bundle) => {
-                        bundles.push({
-                            name: bundle,
-                            url: bundle[0] === '@' ? 'https://www.npmjs.com/package/' + bundle : null
-                        });
-                    });
-
-                    resolve({
-                        conga_version: this.container.getParameter('conga.version'),
-                        environment: this.container.getParameter('kernel.environment'),
-                        installed_bundles: bundles,
-                        os: {
-                            cpus: os.cpus().length,
-                            hostname: os.hostname(),
-                            type: os.type(),
-                            platform: os.platform(),
-                            release: os.release()
-                        },
-                        featured: post,
-                        posts: posts
-                    });
-
-                });
-
-            }).catch(reject);
-
-        });
-
+        // execute queries asynchronously!
+        const manager = this.container.get('bass').createSession().getManager('blog');
+        return Promise.all([
+            manager.findOneBy('Post', {isFeatured: true}).then(post => {
+                data.featured = post;
+            }),
+            manager.findBy('Post', {isFeatured: false}).then(posts => {
+                data.posts = posts;
+            })
+        ]).then(all => data);   // resolve with the return data
     }
 
     /**
