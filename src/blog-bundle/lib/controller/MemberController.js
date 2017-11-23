@@ -39,14 +39,18 @@ module.exports = class MemberController extends Controller {
      * @param {Object} res The response object
      */
     signup(req, res) {
+
         const security = this.container.get('security.context').getAuthToken();
         if (security.authenticated) {
+
             // if the user is already authenticated, redirect them to their home page
             req.session.getFlashBag().set('message',
                 'You are logged in. Please log out before creating a new account.');
-            res.redirect(302, "/member");
+
+            res.redirect(302, '/member');
             return;
         }
+
         const manager = this.container.get('bass').createSession().getManager('blog');
         const validator = this.container.get('validator');
         const user = manager.createDocument('User', req.body || {});
@@ -55,10 +59,12 @@ module.exports = class MemberController extends Controller {
             success: false,
             message: req.session.getFlashBag().get('message')
         };
+
         // if this is a GET request just return the data, don't process it
         if (req.method === 'GET' || !req.body) {
             return Promise.resolve(data);
         }
+
         // validate the Form data with the validator
         // the form data is in req.body and it's used to create our user document (see above)
         // this checks all assertions, where @Assert:* is placed above the document class property
