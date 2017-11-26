@@ -16,6 +16,11 @@ module.exports = class Session {
         this.id = null;
 
         /**
+         * @Bass:Field(type="String", name="sid")
+         */
+        this.sid = null;
+
+        /**
          * @Bass:Field(type="Object", name="data")
          */
         this.data = {};

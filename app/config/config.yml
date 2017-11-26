@@ -100,19 +100,20 @@ session:
         enabled: true
 
     cookie:
-        name: conga.sid
+        name: conga.blog.sid
 
-#    store:
-#        # hooked up to the bass-express-session module
-#        # this lets us use our configured bass adapters, managers and documents for session storage
-#        module: "@conga/bass-express-session"
-#        options:
-#            ttl: 300                         # time to live, in seconds
-#            bass: ${conga-bass::bass}        # reference to the bass service (or bass.createSession() instance)
-#            manager: session                 # the bass manager to use
-#            document: Session                # the document used for sessions
-#            expireField: expiresAt           # the field in the document that contains the expiration date
-#            dataField: data                  # the field that holds all the session data
+    store:
+        # hooked up to the bass-express-session module
+        # this lets us use our configured bass adapters, managers and documents for session storage
+        module: "@conga/bass-express-session"
+        options:
+            ttl: 300                         # time to live, in seconds
+            bass: ${conga-bass::bass}        # reference to the bass service (or bass.createSession() instance)
+            manager: session                 # the bass manager to use
+            document: Session                # the document used for sessions
+            expireField: expiresAt           # the field in the document that contains the expiration date
+            dataField: data                  # the field that holds all the session data
+            sidField: sid                    # the field that stores the session id
 
 # ------------------------------------------------------------------------------
 # @conga/framework-rest

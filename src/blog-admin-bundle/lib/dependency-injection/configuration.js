@@ -9,6 +9,6 @@
 
 module.exports = {
 
-	getName: () => 'admin'
+	getName: () => 'blog-admin'
 
 };
