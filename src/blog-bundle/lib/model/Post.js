@@ -1,5 +1,6 @@
+// third party libs
 const marked = require('marked');
-const slug = require('slug');
+const Slugify = require('slugifyjs').fromLocale('en');
 
 /**
  * @Bass:Document(collection="posts")
@@ -145,7 +146,7 @@ module.exports = class Post {
      * @-Bass:PreUpdate
      */
     onPrePersist(evt, cb) {
-        this.slug = slug(this.title, { lower: true });
+        this.slug = Slugify.parse(this.title);
         cb();
     }
 

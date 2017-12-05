@@ -83,8 +83,6 @@ module.exports = class MemberController extends Controller {
                 // persist and flush the user with the manager
                 manager.persist(user);
                 return manager.flush(user).then(() => {
-                    // let the view know that we succeeded
-                    data.success = true;
                     // add the data to the flash-bag for the next controller to do something with
                     req.session.getFlashBag().set('member_signup_data', {
                         firstName: user.firstName,

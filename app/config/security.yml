@@ -4,7 +4,7 @@
 # This bundle allows you to configure security for your application.  You can
 # configure encryption strategies and firewalls to control access to routes.
 #
-# Readme: https://github.com/congajs/conga-security
+# Documentation: https://github.com/congajs/conga-security/tree/master/docs
 #
 # (don't be scared it looks harder than it is!)
 # ------------------------------------------------------------------------------
